@@ -1,0 +1,33 @@
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #108ee9;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  width: 120px;
+  height: 31px;
+  background: #333;
+  border-radius: 6px;
+  margin: 16px 28px 16px 16px;
+  float: left;
+}
+
+#components-layout-demo-custom-trigger .ant-layout-sider-collapsed .nav-text {
+  display: none;
+}
+
+#components-layout-demo-custom-trigger .ant-layout-sider-collapsed .anticon {
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+#components-layout-demo-custom-trigger .ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
+  display: none;
+}
