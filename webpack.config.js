@@ -6,6 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
+//"./node_modules/.bin/webpack" --config webpack.config.js --verbose
 const DEBUG = !process.argv.includes('--verbose');
 
 console.log("is develop: ", DEBUG)

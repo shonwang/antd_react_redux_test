@@ -37,6 +37,7 @@
     "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.4"
   }
 }

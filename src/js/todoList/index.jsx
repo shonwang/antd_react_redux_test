@@ -1,6 +1,6 @@
 import {visibilityFilter, todos} from "./reducers/reducers";
 import App from "./containers/App";
-import { toggleSiderReducer, selectKeyReducer, fetchUserInfoReducer } from '../sider/reducers/reducers';
+import { toggleSiderReducer, selectKeyReducer, fetchUserInfoReducer, modifyBreadcrumbReducer } from '../sider/reducers/reducers';
 import { combineReducers } from 'redux'
 
 const finalReducers = combineReducers({
@@ -8,7 +8,8 @@ const finalReducers = combineReducers({
   todos,
   toggleSiderReducer,
   selectKeyReducer,
-  fetchUserInfoReducer
+  fetchUserInfoReducer,
+  modifyBreadcrumbReducer
 })
 
 

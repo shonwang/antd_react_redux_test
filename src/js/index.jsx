@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware , combineReducers} from 'redux';
 import { Provider, connect } from 'react-redux';
-import { Layout, message } from 'antd';
+import { Layout, message, Breadcrumb } from 'antd';
 import MyRouter from './router';
 import * as allSiderReducers from './sider/reducers/reducers';
-import { toggleSider, selectKey, fetchUserInfo } from './sider/actions/actions';
-import {MyHeader, MySider} from './sider/components/sider';
+import { toggleSider, fetchUserInfo } from './sider/actions/actions';
+import {MyHeader, MySider, MyBreadcrumb} from './sider/components/sider';
 import logger from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
+
+if (process.env.NODE_ENV !== 'production')
+    window.BASE_URL = "http://local.center.ksyun.com";
 
 const siderReducers = combineReducers(allSiderReducers)
 
@@ -32,11 +35,13 @@ const mapStateToProps = (state) => {
     isFetching: state.fetchUserInfoReducer.isFetching,
     userInfo: state.fetchUserInfoReducer.userInfo,
     error: state.fetchUserInfoReducer.error,
+    breadcrumbArray: state.modifyBreadcrumbReducer,
   }
 }
 
 const MyHeaderWithRedux = connect(mapStateToProps, mapDispatchToProps)(MyHeader);
 const MySiderWithRedux = connect(mapStateToProps)(MySider);
+const MyBreadcrumbRedux = connect(mapStateToProps)(MyBreadcrumb);
 
 class MySiderBar extends React.Component {
 
@@ -48,7 +53,8 @@ class MySiderBar extends React.Component {
                 <Layout className="ant-layout-has-sider">
                     <MySiderWithRedux />
                     <Layout>
-                        <Layout.Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
+                        <MyBreadcrumbRedux />
+                        <Layout.Content style={{ margin: '12px 16px', padding: 24, background: '#fff' }}>
                             <MyRouter />
                         </Layout.Content>
                     </Layout>
@@ -60,23 +66,3 @@ class MySiderBar extends React.Component {
 }
 
 ReactDOM.render(<MySiderBar />, document.getElementById('root'));
-
-// let url = 'http://local.center.ksyun.com/gateway/auth/owns/authed?' + new Date().valueOf();
-
-// let headers = new Headers();
-// headers.append('systemKey', 'resourcemanager');
-// let request = new Request(url, {method: 'GET', headers: headers, credentials: 'include'}),
-//     alertMsg = '您还没有登录,请登陆后访问本页面.系统正在为您跳转到登录页面, 如果未能自动跳转，请手动刷新！',
-//     onCloseMsg = () => message.success("redirect!!!", 2);
-
-// fetch(request).then(response => response.json())
-//     .then(data => {
-//         console.log("get it!", data); 
-//         if (data.status&&data.status !== 200)
-//         message.error(alertMsg, 5, onCloseMsg);
-//         else
-//         ReactDOM.render(<MySiderBar />, document.getElementById('root'))
-//     }).catch(e => {
-//         console.log("error", e)
-//         message.error(alertMsg, 5, onCloseMsg);
-//     })

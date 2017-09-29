@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch' //https://github.com/github/fetch
 
 /*
  * action 类型
@@ -8,6 +8,7 @@ export const SELECT_KEY = 'SELECT_KEY';
 export const REQUEST_USER_INFO = 'REQUEST_USER_INFO';
 export const RECEIVE_USER_INFO_SUCCESS = 'RECEIVE_USER_INFO_SUCCESS';
 export const RECEIVE_USER_INFO_ERROR = 'RECEIVE_USER_INFO_ERROR';
+export const MODIFY_BREADCRUMB = 'MODIFY_BREADCRUMB';
 /*
  * action 创建函数
  */
@@ -41,15 +42,21 @@ export function receiveUserInfoError(args, e) {
   }
 }
 
+export function modifyBreadcrumb(breadcrumbArray) {
+  return {
+    type: MODIFY_BREADCRUMB,
+    breadcrumbArray
+  }
+}
+
 export function fetchUserInfo() {
     return dispatch => {
         dispatch(requestUserInfo())
 
-        let url = 'http://local.center.ksyun.com/gateway/auth/owns/authed?' + new Date().valueOf();
+        let url = window.BASE_URL + '/gateway/auth/owns/authed?' + new Date().valueOf();
         let headers = new Headers();
         headers.append('systemKey', 'resourcemanager');
         let request = new Request(url, {method: 'GET', headers: headers, credentials: 'include'});
-        //let request = new Request(url, {method: 'GET', headers: headers});
 
         return fetch(request).then(response => response.json())
             .then(json => {

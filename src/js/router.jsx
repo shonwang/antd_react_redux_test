@@ -2,7 +2,7 @@ import React from 'react'
 import {Route , HashRouter, Link} from 'react-router-dom'
 import Bundle from "./bundle";
 import PropTypes from 'prop-types';
-import { selectKey } from './sider/actions/actions';
+import { selectKey, modifyBreadcrumb } from './sider/actions/actions';
 
 class MyRouter extends React.Component {
     constructor(props, context) {
@@ -22,11 +22,19 @@ class MyRouter extends React.Component {
 
     index(location){
         this.dispatch(selectKey([location.match.path]))
-        return <h1>hello world!</h1>
+        this.dispatch(modifyBreadcrumb(['报警通讯', '联系人管理']))
+        var _this = this
+        return (<Bundle load={() => import("./contactManage/index")}>
+          {(contactManage) => {
+              _this.store.replaceReducer(contactManage.finalReducers)
+              return <contactManage.App />
+          }}
+        </Bundle>)
     }
 
     todoList(location, cb) {
         this.dispatch(selectKey([location.match.path]))
+        this.dispatch(modifyBreadcrumb(['报警通讯', '备忘录']))
         var _this = this
         return (<Bundle load={() => import("./todoList/index")}>
           {(todoObj) => {

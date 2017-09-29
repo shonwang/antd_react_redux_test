@@ -1,5 +1,9 @@
-import { combineReducers } from 'redux'
-import { TOGGLE_SIDER, SELECT_KEY, REQUEST_USER_INFO, RECEIVE_USER_INFO_SUCCESS, RECEIVE_USER_INFO_ERROR } from '../actions/actions'
+import { TOGGLE_SIDER, 
+         SELECT_KEY, 
+         REQUEST_USER_INFO, 
+         RECEIVE_USER_INFO_SUCCESS, 
+         RECEIVE_USER_INFO_ERROR,
+         MODIFY_BREADCRUMB } from '../actions/actions'
 
 function toggleSiderReducer(state = {collapsed: false, mode: "inline"}, action) {
   switch (action.type) {
@@ -45,9 +49,13 @@ function fetchUserInfoReducer(state = {isFetching: false, userInfo: {}, error: n
   }
 }
 
-// const siderReducers = combineReducers({
-//   toggleSiderReducer,
-//   selectKeyReducer
-// })
+function modifyBreadcrumbReducer(state = ['报警通讯', '联系人管理'], action) {
+  switch (action.type) {
+    case MODIFY_BREADCRUMB:
+      return state = action.breadcrumbArray
+    default:
+      return state
+  }
+}
 
-export {toggleSiderReducer, selectKeyReducer, fetchUserInfoReducer}
+export {toggleSiderReducer, selectKeyReducer, fetchUserInfoReducer, modifyBreadcrumbReducer}
